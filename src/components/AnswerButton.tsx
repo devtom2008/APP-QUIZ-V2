@@ -1,11 +1,21 @@
-import../ "App.css"
+import '../App.css'
 
-function answerBtn() {
+interface AnswerBtnProps {
+    answer: string;
+    onclick: () => void;
+}
+
+
+
+function AnswerBtn({ answer, onclick }: AnswerBtnProps) {
     return (
         <>
-            <button className='answer-btn'></button>
+            <button className='answer-btn' onClick={onclick}>
+                {answer}
+            </button >
         </>
     )
 }
 
-export default answerBtn
+
+export default AnswerBtn

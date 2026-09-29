@@ -52,18 +52,47 @@ button {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  border: 2px solid grey;
   height: 50vh;
   width: 60vw;
   min-width: 30vw;
+  gap: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--text-quiz-size);
 }
 
 .answer-btn {
-  width: 80%;
+  width: 50vw;
   height: 10vh;
   border-radius: 5px;
-  background-color: #181C24;
+  border: 2px solid grey;
+  color: aliceblue;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--text-quiz-size);
+}
+
+#answer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#next-btn-usable {
+  width: 80%;
+  height: 7vh;
+  border-radius: 5px;
   border: none;
+  background-color: #0000FF;
+  color: aliceblue;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--text-quiz-size);
+}
+
+#unusable-next-btn {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #00005F;
   color: aliceblue;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: var(--text-quiz-size);

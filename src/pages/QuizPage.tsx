@@ -1,5 +1,6 @@
-import { useState } from "react";
 import Background from "../components/Background";
+import AnswerBtn from "../components/AnswerButton";
+import { useState } from "react"
 import "../App.css"
 
 let questionAnswer = [
@@ -28,12 +29,6 @@ let questionAnswer = [
     }
 ]
 
-const quizDiv = document.getElementById('quiz-div'),
-    questionQuizDiv = document.getElementById('question'),
-    answerQuizDiv = document.getElementById('answer'),
-    coverAnswer = document.getElementById('cover-answer'),
-    nextbutton = document.getElementById('unusable-next-btn'),
-    nextBtnDiv = document.getElementById('next-btn-div')
 
 
 function useIndex() {
@@ -42,48 +37,72 @@ function useIndex() {
     return { currentIndex, setCurrentIndex }
 }
 
-function displayQuestionAnswer() {
-    const { currentIndex, setCurrentIndex } = useIndex()
 
-    let currentQuestionAnswer = questionAnswer[currentIndex]
-    questionQuizDiv.textContent = currentQuestionAnswer.question
-
-    console.log();
-
-
-    answerQuizDiv.innerHTML = currentQuestionAnswer.answers.map(answer => {
-        return (
-            `<button class='answer-btn'>${answer}</button>`
-        )
-    }).join("")
-
-
-}
-displayQuestionAnswer
 
 
 function Quiz() {
+    const { currentIndex, setCurrentIndex } = useIndex(),
+        [hasChosen, setHasChosen] = useState(false),
+        [score, SetScore] = useState(0)
 
 
-    return (
-        <>
-            <div style={{ color: "red" }}>{questionAnswer[0].question}</div>
-            <div className='app'>
-                <Background />
-                <div className='content'>
-                    <div id="quiz-div">
-                        <div id="question">salut</div>
-                        <div id="cover-answer"></div>
-                        <div id="answer"></div>
+    let currentQuestionAnswer = questionAnswer[currentIndex]
 
-                        <div id="next-btn-div">
-                            <button id='unusable-next-btn'>Next</button>
+    console.log(currentQuestionAnswer.question);
+
+    let answer = currentQuestionAnswer.answers.map(answer => {
+        return (
+            <AnswerBtn answer={answer} onclick={makeChoice} />
+        )
+    })
+
+
+    function displayQuestionAnswer() {
+        if (currentIndex < questionAnswer.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        }
+    }
+
+    function makeChoice() {
+        let selected_answer
+        const answerBtn = document.querySelectorAll('.answer-btn'),
+            correctAnswer = [...answerBtn].find(element => {
+                return element.textContent === currentQuestionAnswer.correctAnswer
+            })?.textContent
+
+        if (hasChosen === false) {
+            answerBtn.forEach(element => {
+                () => {
+                    selected_answer = element.textContent
+                    if (selected_answer === correctAnswer) {
+                        element.classList.add('correct_one')
+                        setHasChosen(true)
+                        SetScore(score + 1)
+                    }
+                }
+            })
+        }
+
+        return (
+            <>
+                <div className='app'>
+                    <Background />
+                    <div className='content'>
+                        <div id="quiz-div">
+                            <div id="question">{currentQuestionAnswer.question}</div>
+                            <div id="cover-answer"></div>
+                            <div id="answer">{answer}</div>
+
+                            <div id="next-btn-div">
+                                <button id='unusable-next-btn' onClick={displayQuestionAnswer}>
+                                    Next
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }
-
 export default Quiz
