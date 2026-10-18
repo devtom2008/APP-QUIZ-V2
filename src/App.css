@@ -3,7 +3,8 @@
 }
 
 :root {
-  --text-quiz-size: clamp(0.5rem, 1rem, 1.5rem);
+  --text-quiz-size: clamp(10px 2vw, 20px);
+  --btn-width: clamp(60px, 10vw, 150px)
 }
 
 body {
@@ -70,14 +71,40 @@ button {
   font-size: var(--text-quiz-size);
 }
 
+#next-quit-div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.correct {
+  color: green;
+  border: 2px solid green;
+  width: 50vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--text-quiz-size);
+}
+
+.incorrect {
+  width: 50vw;
+  height: 10vh;
+  border-radius: 5px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: var(--text-quiz-size);
+  color: red;
+  border: 2px solid red
+}
+
 #answer {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-#next-btn-usable {
-  width: 80%;
+.btn-usable {
+  width: var(--btn-width);
   height: 7vh;
   border-radius: 5px;
   border: none;
@@ -87,9 +114,9 @@ button {
   font-size: var(--text-quiz-size);
 }
 
-#unusable-next-btn {
-  width: 10rem;
-  height: 3rem;
+.unusable-btn {
+  width: var(--btn-width);
+  height: 7vh;
   border-radius: 5px;
   border: none;
   background-color: #00005F;

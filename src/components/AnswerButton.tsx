@@ -1,16 +1,33 @@
-import '../App.css'
 
 interface AnswerBtnProps {
     answer: string;
-    onclick: () => void;
+    onclick: (answer: string) => void;
+    incorrect: boolean;
+    correct: boolean;
+    hasChosen: boolean;
 }
 
 
 
-function AnswerBtn({ answer, onclick }: AnswerBtnProps) {
+function AnswerBtn({ answer,
+    onclick,
+    incorrect,
+    correct,
+    hasChosen
+}: AnswerBtnProps) {
+    let className = "answer-btn";
+    if (hasChosen && correct) {
+        className = "correct"
+    } else if (incorrect) {
+        className = "incorrect"
+    }
+
     return (
         <>
-            <button className='answer-btn' onClick={onclick}>
+            <button className={className} onClick={() =>
+                onclick(answer)
+            }
+                disabled={hasChosen}>
                 {answer}
             </button >
         </>
