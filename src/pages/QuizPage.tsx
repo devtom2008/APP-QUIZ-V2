@@ -1,9 +1,10 @@
 import Background from "../components/Background";
 import AnswerBtn from "../components/AnswerButton";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import NextBtn from "../components/NextBtn"
+import NextScoreBtn from "../components/NextScoreBtn"
 import QuitBtn from "../components/QuitBtn"
+import QuestionSection from "../components/QuestionSection"
 import "../App.css"
 
 let questionAnswer = [
@@ -56,7 +57,10 @@ function Quiz() {
         [hasChosen, setHasChosen] = useState(false),
         [score, setScore] = useState(0),
         [selectAnswer, setSelectAnswer] = useState<string | null>(null),
-        navigate = useNavigate()
+        navigate = useNavigate(),
+        effect = useEffect(() => {
+            console.log(score);
+        }, [score])
 
     let currentQuestionAnswer = questionAnswer[currentIndex]
 
@@ -75,6 +79,14 @@ function Quiz() {
 
     }
 
+    function verifyIndex() {
+        if (currentIndex === questionAnswer.length - 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
     function makeChoice(answer: string) {
@@ -90,12 +102,12 @@ function Quiz() {
             setScore(score + 1)
             console.log("Bonne reponse")
             console.log(answer);
-            console.log(score);
+            effect
             console.log(hasChosen);
         } else {
             console.log("Mauvaise reponse")
             console.log(score);
-
+            effect
             console.log(answer);
             console.log(hasChosen);
         }
@@ -118,12 +130,12 @@ function Quiz() {
                 <Background />
                 <div className='content'>
                     <div id="quiz-div">
-                        <div id="question">{currentQuestionAnswer.question}</div>
+                        <QuestionSection question={currentQuestionAnswer.question} />
                         <div id="answer">{answerBtn}</div>
 
                         <div id="next-quit-div">
                             <QuitBtn onclick={() => navigate("/")} />
-                            <NextBtn onclick={displayQuestionAnswer} hasChosen={hasChosen} />
+                            <NextScoreBtn functionProp={displayQuestionAnswer} hasChosen={hasChosen} questionAnswerLength={verifyIndex()} score={score} />
                         </div>
                     </div>
                 </div>

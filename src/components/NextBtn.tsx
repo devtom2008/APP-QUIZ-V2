@@ -1,6 +1,6 @@
 import "../App.css"
 
-interface NextBtnProps {
+interface NextBtnBtnProps {
     onclick: () => void;
     hasChosen: boolean;
 }
@@ -8,9 +8,9 @@ interface NextBtnProps {
 
 function NextBtn({
     onclick,
-    hasChosen
-}: NextBtnProps) {
-    let className = "unusable-btn "
+    hasChosen,
+}: NextBtnBtnProps) {
+    let className = "unusable-btn"
 
     if (hasChosen) {
         className = "btn-usable"
